@@ -18,7 +18,7 @@
 
 .octicon(@name, @size: 16px) {
   @import "octicon-utf-codes.less";
-  &:before {
+  &::before {
     .icon(@size);
     content: @@name
   }
@@ -26,10 +26,18 @@
 
 .mega-octicon(@name, @size: 32px) {
   @import "octicon-utf-codes.less";
-  &:before {
+  &::before {
     .icon(@size);
     content: @@name
   }
+}
+
+// keep for backwards compatibility
+.octicon-font-legacy() {
+  font-family: 'Octicons Regular';
+  src: url("octicons-2.1.2.woff") format("woff");
+  font-weight: normal;
+  font-style: normal;
 }
 
 .octicon-font() {
@@ -38,4 +46,3 @@
   font-weight: normal;
   font-style: normal;
 }
-

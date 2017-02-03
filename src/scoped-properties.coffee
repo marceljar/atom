@@ -2,18 +2,21 @@ CSON = require 'season'
 
 module.exports =
 class ScopedProperties
-  @load: (scopedPropertiesPath, callback) ->
+  @load: (scopedPropertiesPath, config, callback) ->
     CSON.readFile scopedPropertiesPath, (error, scopedProperties={}) ->
       if error?
         callback(error)
       else
-        callback(null, new ScopedProperties(scopedPropertiesPath, scopedProperties))
+        callback(null, new ScopedProperties(scopedPropertiesPath, scopedProperties, config))
 
-  constructor: (@path, @scopedProperties) ->
+  constructor: (@path, @scopedProperties, @config) ->
 
   activate: ->
     for selector, properties of @scopedProperties
-      atom.syntax.addProperties(@path, selector, properties)
+      @config.set(null, properties, scopeSelector: selector, source: @path)
+    return
 
   deactivate: ->
-    atom.syntax.removeProperties(@path)
+    for selector of @scopedProperties
+      @config.unset(null, scopeSelector: selector, source: @path)
+    return

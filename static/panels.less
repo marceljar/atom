@@ -1,39 +1,25 @@
 @import "ui-variables";
 
-// Override bootstrap styles here.
-.panel {
-  border-radius: 0;
-  border: none;
-  background-color: transparent;
-  box-shadow: none;
+// Atom panels
 
-  &.bordered {
-    .panel-heading {
-      border-radius: @component-border-radius @component-border-radius 0 0;
-    }
-  }
+atom-panel-container.left,
+atom-panel-container.right {
+  display: flex;
 }
 
-.inset-panel {
-  .panel-heading {
-    border-radius: @component-border-radius @component-border-radius 0 0;
-  }
+.tool-panel, // deprecated: .tool-panel
+atom-panel {
+  display: block;
+  position: relative;
 }
 
-.panel-heading {
-  margin: 0;
+atom-panel-container > atom-panel.left,
+atom-panel-container > atom-panel.right {
+  display: flex;
+}
 
-  border-radius: 0;
-
-  font-size: @font-size;
-  line-height: 1;
-
-  .btn {
-    @btn-height: @component-line-height - 5px;
-    height: @btn-height;
-    line-height: @btn-height;
-    font-size: @font-size - 2px;
-    position: relative;
-    top: -5px;
-  }
+// Some packages use `height: 100%` which doesn't play nice with flexbox
+atom-panel-container > atom-panel.left > *,
+atom-panel-container > atom-panel.right > * {
+  height: initial;
 }
